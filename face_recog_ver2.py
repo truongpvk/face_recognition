@@ -38,11 +38,11 @@ known_face_names = [
 while True:
     ret, frame = video_capture.read()
 
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-    rgb_frame = small_frame[:, :, ::-1]
+
+    rgb_frame = frame[:, :, ::-1]
 
     face_locations = face_recognition.face_locations(rgb_frame)
-    face_encodings = face_recognition.face_encodings(face_image=rgb_frame, known_face_locations=face_locations, num_jitters=2)
+    face_encodings = face_recognition.face_encodings(face_image=rgb_frame, known_face_locations=face_locations)
 
     for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
         matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
